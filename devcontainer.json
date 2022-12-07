@@ -1,0 +1,13 @@
+{
+    "customizations": {
+      "codespaces": {
+        "repositories": {
+          "piotr-placzek/*": {
+            "permissions": {
+              "packages": "read"
+            }
+          }
+        }
+      }
+    }
+} 

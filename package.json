@@ -1,0 +1,38 @@
+{
+  "name": "recursively-git-fetch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "lint": "eslint \"{src,test}/**/*.js\" --fix",
+    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles --testMatch '**/test/**/*.spec.js'",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piotr-placzek/recursively-git-fetch.git"
+  },
+  "keywords": [
+    "git",
+    "fetch",
+    "recusively"
+  ],
+  "author": "Piotr Płaczek",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/piotr-placzek/recursively-git-fetch/issues"
+  },
+  "homepage": "https://github.com/piotr-placzek/recursively-git-fetch#readme",
+  "devDependencies": {
+    "@piotr-placzek/eslint-config": "^1.0.0",
+    "@piotr-placzek/prettier-config": "^1.0.0",
+    "eslint": "^8.29.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^26.1.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.2",
+    "jest": "^29.3.1",
+    "prettier": "^2.8.0"
+  }
+}
