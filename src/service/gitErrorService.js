@@ -22,7 +22,6 @@ function getAll() {
  * @param {Boolean} detailed
  */
 function print(detailed = false) {
-    console.log(errors);
     for (let i = 0; i < errors.length; ++i) {
         loggerService.error(errors[i].simpleMessage);
         if (detailed) {

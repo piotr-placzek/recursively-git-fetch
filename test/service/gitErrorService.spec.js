@@ -1,6 +1,6 @@
 'use strict';
 
-const { GitError } = require('simple-git');
+const GitError = require('../../src/model/gitError');
 const gitErrorService = require('../../src/service/gitErrorService');
 const loggerService = require('../../src/service/loggerService');
 
@@ -30,17 +30,10 @@ describe('gitErrorService', () => {
                 error: new Error('test message'),
             }),
         );
-        gitErrorService.collect(new Array(1));
-        gitErrorService.collect({
-            repositoryPath: '/home/user/project',
-            gitCommands: ['fetch', 'pull'],
-            error: new Error('test message'),
-        });
-
         const collected = gitErrorService.getAll();
 
         expect(collected.length).toBe(2);
-        expect(collected[1]).toMatchInlineSnapshot(`
+        expect(collected.at(1)).toMatchInlineSnapshot(`
             GitError {
               "error": [Error: test message],
               "gitCommands": [
@@ -50,6 +43,19 @@ describe('gitErrorService', () => {
               "repositoryPath": "/home/user/project",
             }
         `);
+    });
+
+    test('collection should be cleaned', () => {
+        gitErrorService.collect(new Error('Error'));
+        gitErrorService.collect(new Error('Error'));
+        gitErrorService.collect(new Error('Error'));
+
+        let collected = gitErrorService.getAll();
+        expect(collected.length).toBe(3);
+
+        gitErrorService.clean();
+        collected = gitErrorService.getAll();
+        expect(collected.length).toBe(0);
     });
 
     test('should print simple messages', () => {
