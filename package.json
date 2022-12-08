@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node -r dotenv/config index.js",
     "lint": "eslint \"{src,test}/**/*.js\" --fix",
     "test": "NODE_ENV=test eslint \"{src,test}/**/*.js\" && jest --runInBand --detectOpenHandles --testMatch '**/test/**/*.spec.js'",
     "prepare": "husky install"
@@ -36,6 +36,7 @@
     "prettier": "^2.8.0"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "fs-extra": "^11.1.0",
     "simple-git": "^3.15.1"
   }
