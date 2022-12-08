@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "lint": "eslint \"{src,test}/**/*.js\" --fix",
-    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles --testMatch '**/test/**/*.spec.js'",
+    "test": "NODE_ENV=test eslint \"{src,test}/**/*.js\" && jest --runInBand --detectOpenHandles --testMatch '**/test/**/*.spec.js'",
     "prepare": "husky install"
   },
   "repository": {
