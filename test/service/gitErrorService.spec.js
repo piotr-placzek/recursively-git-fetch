@@ -35,11 +35,11 @@ describe('gitErrorService', () => {
         expect(collected.length).toBe(2);
         expect(collected.at(1)).toMatchInlineSnapshot(`
             GitError {
-              "error": [Error: test message],
               "commands": [
                 "fetch",
                 "pull",
               ],
+              "error": [Error: test message],
               "repositoryPath": "/home/user/project",
             }
         `);

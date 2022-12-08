@@ -16,34 +16,34 @@ describe('GitError', () => {
     test('construct new GitError', () => {
         expect(error).toMatchInlineSnapshot(`
             GitError {
-              "error": [Error: test message],
               "commands": [
                 "fetch",
                 "pull",
               ],
+              "error": [Error: test message],
               "repositoryPath": "/home/user/project",
             }
         `);
     });
 
-    test('should has got error message', () => {
+    test('should has got own error message', () => {
+        expect(error.message).toBe('ERROR [fetch, pull] /home/user/project');
+    });
+
+    test("error message coudn't be changed", () => {
         function modify() {
             error.message = 'changed message';
         }
         expect(modify).toThrowError();
     });
 
-    test("error message coudn't be changed", () => {
-        expect(error.message).toBe('test message');
+    test('should return error message as error details', () => {
+        expect(error.errorDetails).toBe('test message');
     });
 
-    test('should has got own simple message', () => {
-        expect(error.simpleMessage).toBe('ERROR [fetch, pull] /home/user/project');
-    });
-
-    test("simple message coudn't be changed", () => {
+    test("error details coudn't be changed", () => {
         function modify() {
-            error.simpleMessage = 'changed message';
+            error.errorDetails = 'changed message';
         }
         expect(modify).toThrowError();
     });

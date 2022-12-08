@@ -23,9 +23,9 @@ function getAll() {
  */
 function print(detailed = false) {
     for (let i = 0; i < errors.length; ++i) {
-        loggerService.error(errors[i].simpleMessage);
+        loggerService.error(errors[i].message);
         if (detailed) {
-            loggerService.error(errors[i].message);
+            loggerService.error(errors[i].errorDetails);
         }
     }
 }
