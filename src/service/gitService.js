@@ -2,9 +2,12 @@
 
 const fse = require('fs-extra');
 const git = require('simple-git');
+const gitErrorService = require('./gitErrorService');
 const path = require('path');
+const GitError = require('../model/gitError');
 
 const { TARGET_BRANCH } = require('../config');
+const loggerService = require('./loggerService');
 const GIT_DIR = '.git';
 
 /**
@@ -20,8 +23,18 @@ async function fetch(repositoryPath) {
 async function fetchRecursively(rootDirPath, options) {
     const repositories = findGitRepositories(rootDirPath, options);
     for (let i = 0; i < repositories.length; ++i) {
-        await fetch(repositories[i]);
+        const repositoryPath = repositories[i];
+        try {
+            await fetch(repositoryPath);
+            loggerService.log('OK', repositoryPath);
+        } catch (error) {
+            if (error.task) {
+                const { commands } = error.task;
+                gitErrorService.collect(new GitError({ repositoryPath, commands, error }));
+            }
+        }
     }
+    gitErrorService.print();
 }
 
 /**

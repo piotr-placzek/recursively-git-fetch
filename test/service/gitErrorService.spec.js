@@ -12,7 +12,7 @@ describe('gitErrorService', () => {
     beforeEach(() => {
         error = new GitError({
             repositoryPath: '/home/user/project',
-            gitCommands: ['fetch', 'pull'],
+            commands: ['fetch', 'pull'],
             error: new Error('test message'),
         });
     });
@@ -26,7 +26,7 @@ describe('gitErrorService', () => {
         gitErrorService.collect(
             new GitError({
                 repositoryPath: '/home/user/project',
-                gitCommands: ['fetch', 'pull'],
+                commands: ['fetch', 'pull'],
                 error: new Error('test message'),
             }),
         );
@@ -36,7 +36,7 @@ describe('gitErrorService', () => {
         expect(collected.at(1)).toMatchInlineSnapshot(`
             GitError {
               "error": [Error: test message],
-              "gitCommands": [
+              "commands": [
                 "fetch",
                 "pull",
               ],

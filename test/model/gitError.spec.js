@@ -8,7 +8,7 @@ describe('GitError', () => {
     beforeEach(() => {
         error = new GitError({
             repositoryPath: '/home/user/project',
-            gitCommands: ['fetch', 'pull'],
+            commands: ['fetch', 'pull'],
             error: new Error('test message'),
         });
     });
@@ -17,7 +17,7 @@ describe('GitError', () => {
         expect(error).toMatchInlineSnapshot(`
             GitError {
               "error": [Error: test message],
-              "gitCommands": [
+              "commands": [
                 "fetch",
                 "pull",
               ],

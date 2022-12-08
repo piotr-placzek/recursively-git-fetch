@@ -3,12 +3,12 @@
 class GitError {
     /**
      * @param {String} repositoryPath
-     * @param {Array<String>} gitCommands
+     * @param {Array<String>} commands
      * @param {Error} error
      */
-    constructor({ repositoryPath, gitCommands, error }) {
+    constructor({ repositoryPath, commands, error }) {
         this.repositoryPath = repositoryPath;
-        this.gitCommands = gitCommands;
+        this.commands = commands;
         this.error = error;
     }
 
@@ -17,7 +17,7 @@ class GitError {
     }
 
     get simpleMessage() {
-        return `ERROR [${this.gitCommands.join(', ')}] ${this.repositoryPath}`;
+        return `ERROR [${this.commands.join(', ')}] ${this.repositoryPath}`;
     }
 }
 
