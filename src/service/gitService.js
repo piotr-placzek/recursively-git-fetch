@@ -17,8 +17,8 @@ async function fetch(repositoryPath) {
 /**
  * @param {String} rootDirPath
  */
-async function fetchRecursively(rootDirPath) {
-    const repositories = findGitRepositories(rootDirPath);
+async function fetchRecursively(rootDirPath, options) {
+    const repositories = findGitRepositories(rootDirPath, options);
     for (let i = 0; i < repositories.length; ++i) {
         await fetch(repositories[i]);
     }
@@ -29,7 +29,12 @@ async function fetchRecursively(rootDirPath) {
  * @param {Array<String>} repositories
  * @returns {Array<String>}
  */
-function findGitRepositories(rootDirPath, repositories = []) {
+function findGitRepositories(rootDirPath, options, repositories = []) {
+    const re = new RegExp(options.skipRe);
+    if (re.test(rootDirPath)) {
+        return repositories;
+    }
+
     const rootDir = fse.readdirSync(rootDirPath);
     if (rootDir.includes(GIT_DIR)) {
         repositories.push(rootDirPath);
@@ -37,7 +42,7 @@ function findGitRepositories(rootDirPath, repositories = []) {
         rootDir.forEach((entry) => {
             const nextDir = path.join(rootDirPath, entry);
             if (fse.statSync(nextDir).isDirectory()) {
-                repositories = findGitRepositories(nextDir, repositories);
+                repositories = findGitRepositories(nextDir, options, repositories);
             }
         });
     }
