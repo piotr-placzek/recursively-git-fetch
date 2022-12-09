@@ -3,7 +3,7 @@
 const loggerService = require('../service/loggerService');
 
 /**
- * @param {Array<String} message
+ * @param {Array<String>} message
  */
 function handler(message) {
     loggerService.log('Found', message.length, 'repositories.');

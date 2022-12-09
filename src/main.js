@@ -11,6 +11,9 @@ const gitRecursiveJobStartListener = require('./listener/gitRecursiveJobStartLis
 const gitService = require('./service/gitService');
 const loggerService = require('./service/loggerService');
 
+/**
+ * @param {Funcion} fn
+ */
 function listeners(fn) {
     fn(events.GIT_JOB_SUCCESS, gitJobSuccessListener);
     fn(events.GIT_JOB_FAILURE, gitJobFailureListener);
