@@ -1,6 +1,10 @@
 'use strict';
 
+const signale = require('signale');
+
 module.exports = {
-    log: console.log,
-    error: console.log,
+    complete: signale.complete,
+    error: signale.error,
+    log: signale.log,
+    success: signale.success,
 };

@@ -3,7 +3,7 @@
 const loggerService = require('../service/loggerService');
 
 function handler(message) {
-    loggerService.log('OK', message);
+    loggerService.success(message);
 }
 
 module.exports = handler;
