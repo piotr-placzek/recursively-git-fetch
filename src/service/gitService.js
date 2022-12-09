@@ -1,13 +1,12 @@
 'use strict';
 
+const eventService = require('./eventService');
 const fse = require('fs-extra');
 const git = require('simple-git');
-const gitErrorService = require('./gitErrorService');
 const path = require('path');
-const GitError = require('../model/gitError');
 
 const { TARGET_BRANCH } = require('../config');
-const loggerService = require('./loggerService');
+const events = require('../events');
 const GIT_DIR = '.git';
 
 /**
@@ -22,19 +21,19 @@ async function fetch(repositoryPath) {
  */
 async function fetchRecursively(rootDirPath, options) {
     const repositories = findGitRepositories(rootDirPath, options);
+    eventService.emit(events.GIT_RECURSIVE_JOB_START, repositories);
     for (let i = 0; i < repositories.length; ++i) {
         const repositoryPath = repositories[i];
         try {
             await fetch(repositoryPath);
-            loggerService.log('OK', repositoryPath);
+            eventService.emit(events.GIT_JOB_SUCCESS);
         } catch (error) {
             if (error.task) {
-                const { commands } = error.task;
-                gitErrorService.collect(new GitError({ repositoryPath, commands, error }));
+                eventService.emit(events.GIT_JOB_FAILURE, { repositoryPath, error });
             }
         }
     }
-    gitErrorService.print();
+    eventService.emit(events.GIT_RECURSIVE_JOB_FINISH);
 }
 
 /**
@@ -45,6 +44,7 @@ async function fetchRecursively(rootDirPath, options) {
 function findGitRepositories(rootDirPath, options, repositories = []) {
     const re = new RegExp(options.skipRe);
     if (re.test(rootDirPath)) {
+        eventService.emit(events.GIT_JOB_SKIP, rootDirPath);
         return repositories;
     }
 

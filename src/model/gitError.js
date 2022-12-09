@@ -12,10 +12,16 @@ class GitError {
         this.error = error;
     }
 
+    /**
+     * @returns {String}
+     */
     get errorDetails() {
         return this.error.message;
     }
 
+    /**
+     * @returns {String}
+     */
     get message() {
         return `ERROR [${this.commands.join(', ')}] ${this.repositoryPath}`;
     }
