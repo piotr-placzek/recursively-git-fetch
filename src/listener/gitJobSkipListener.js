@@ -3,7 +3,7 @@
 const loggerService = require('../service/loggerService');
 
 function handler(message) {
-    loggerService.log('SKIP', message);
+    loggerService.info('skipping repository', message);
 }
 
 module.exports = handler;

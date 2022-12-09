@@ -2,6 +2,7 @@
 
 const ProgressBar = require('progress');
 const signale = require('signale');
+const { TARGET_BRANCH } = require('../config');
 
 let progress = null;
 
@@ -21,12 +22,16 @@ function initProgressBar(total) {
 function incrementProgressBar() {
     if (progress) {
         progress.tick();
+        if (progress.complete) {
+            signale.success('All repositories are up to date with', TARGET_BRANCH);
+        }
     }
 }
 
 module.exports = {
     complete: signale.complete,
     error: signale.error,
+    info: signale.info,
     log: signale.log,
     success: signale.success,
     initProgressBar,
