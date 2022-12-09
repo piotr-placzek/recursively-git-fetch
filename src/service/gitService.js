@@ -26,7 +26,7 @@ async function fetchRecursively(rootDirPath, options) {
         const repositoryPath = repositories[i];
         try {
             await fetch(repositoryPath);
-            eventService.emit(events.GIT_JOB_SUCCESS, repositoryPath);
+            eventService.emit(events.GIT_JOB_SUCCESS);
         } catch (error) {
             if (error.task) {
                 eventService.emit(events.GIT_JOB_FAILURE, { repositoryPath, error });

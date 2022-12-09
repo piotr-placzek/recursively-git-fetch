@@ -2,8 +2,8 @@
 
 const loggerService = require('../service/loggerService');
 
-function handler(message) {
-    loggerService.success(message);
+function handler() {
+    loggerService.incrementProgressBar();
 }
 
 module.exports = handler;
